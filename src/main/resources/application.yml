@@ -7,6 +7,7 @@ spring:
     username: wanted
     password: backend
     driver-class-name: com.mysql.cj.jdbc.Driver
+    sql-script-encoding: UTF-8
 
   # JPA 설정
   jpa:
@@ -18,6 +19,13 @@ spring:
         globally_quoted_identifiers: false
         format_sql: true     # 쿼리 로그 포맷 (정렬)
         show_sql: true       # 쿼리 로그 출력
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: ALWAYS
+      data-locations: classpath:initdb/insert_test_data.sql
+      schema-locations: classpath:initdb/create_schema.sql
+      encoding: UTF-8
 
 logging:
   level:
@@ -26,3 +34,4 @@ logging:
         type:
           descriptor:
             sql: trace
+

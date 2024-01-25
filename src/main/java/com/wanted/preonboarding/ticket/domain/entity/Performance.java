@@ -1,5 +1,6 @@
 package com.wanted.preonboarding.ticket.domain.entity;
 
+import com.wanted.preonboarding.core.domain.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,7 +17,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Performance {
+public class Performance extends BaseEntity {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
@@ -29,6 +30,7 @@ public class Performance {
     @Column(nullable = false)
     private int round;
     @Column(nullable = false)
+
     private int type;
     @Column(nullable = false)
     private Date start_date;

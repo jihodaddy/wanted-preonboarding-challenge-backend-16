@@ -4,9 +4,12 @@ import com.wanted.preonboarding.core.constants.BaseConstant;
 import com.wanted.preonboarding.core.domain.dto.MessageResponse;
 import com.wanted.preonboarding.core.domain.response.ResponseHandler;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -86,6 +89,28 @@ public class ApiExceptionHandler {
     public ResponseEntity<ResponseHandler<Object>> handleNotFoundException(NotFoundException exception) {
         log.error(exception.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(ResponseHandler.builder().message(BaseConstant.FAIL)
+                        .messageResponse(MessageResponse.builder()
+                                .description(exception.getMessage())
+                                .build())
+                        .build());
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ResponseHandler<Object>> handleConstraintViolationException(ConstraintViolationException exception) {
+        log.error(exception.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ResponseHandler.builder().message(BaseConstant.FAIL)
+                        .messageResponse(MessageResponse.builder()
+                                .description(exception.getMessage())
+                                .build())
+                        .build());
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ResponseHandler<Object>> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
+        log.error(exception.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(ResponseHandler.builder().message(BaseConstant.FAIL)
                         .messageResponse(MessageResponse.builder()
                                 .description(exception.getMessage())

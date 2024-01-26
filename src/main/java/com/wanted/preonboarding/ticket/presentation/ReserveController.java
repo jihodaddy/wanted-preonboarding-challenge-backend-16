@@ -1,7 +1,7 @@
 package com.wanted.preonboarding.ticket.presentation;
 
 import com.wanted.preonboarding.core.domain.response.ResponseHandler;
-import com.wanted.preonboarding.ticket.application.TicketSeller;
+import com.wanted.preonboarding.ticket.domain.application.TicketSeller;
 import com.wanted.preonboarding.ticket.domain.dto.ReserveInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

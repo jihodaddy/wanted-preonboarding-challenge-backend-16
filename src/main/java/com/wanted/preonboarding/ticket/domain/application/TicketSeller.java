@@ -1,5 +1,7 @@
-package com.wanted.preonboarding.ticket.application;
+package com.wanted.preonboarding.ticket.domain.application;
 
+import com.wanted.preonboarding.discount.domain.entity.Discount;
+import com.wanted.preonboarding.discount.infrastructure.repository.DiscountRepository;
 import com.wanted.preonboarding.ticket.domain.dto.PerformanceInfo;
 import com.wanted.preonboarding.ticket.domain.dto.ReserveInfo;
 import com.wanted.preonboarding.ticket.domain.entity.Performance;
@@ -12,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Slf4j
@@ -19,6 +22,7 @@ import java.util.List;
 public class TicketSeller {
     private final PerformanceRepository performanceRepository;
     private final ReservationRepository reservationRepository;
+    private final DiscountRepository discountRepository;
     private long totalAmount = 0L;
 
     public List<PerformanceInfo> getAllPerformanceInfoList() {
@@ -40,6 +44,10 @@ public class TicketSeller {
         if (enableReserve.equalsIgnoreCase("enable")) {
             // 1. 결제
             int price = info.getPrice();
+            if (Objects.nonNull(reserveInfo.getDiscountId())){
+                double discountAmount = calculateDiscount(reserveInfo.getDiscountId(), price);
+                price -= (int)discountAmount;
+            }
             reserveInfo.setAmount(reserveInfo.getAmount() - price);
             // 2. 예매 진행
             reservationRepository.save(Reservation.of(reserveInfo));
@@ -50,4 +58,14 @@ public class TicketSeller {
         }
     }
 
+    public double calculateDiscount(Long id, double amount) {
+        Discount discount = discountRepository.findById(id)
+                .orElseThrow(EntityNotFoundException::new);
+        return switch (discount.getType()) {
+            case PERCENTAGE -> amount * (discount.getValue() / 100);
+            case AMOUNT -> Math.max(0, amount - discount.getValue());
+            case FIXED -> Math.min(amount, discount.getValue());
+            default -> 0;
+        };
+    }
 }

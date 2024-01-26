@@ -1,18 +1,16 @@
 package com.wanted.preonboarding.ticket.domain.dto;
 
-import com.wanted.preonboarding.ticket.domain.entity.Reservation;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
 import java.util.UUID;
 
 @Getter
 @Setter
 @Builder
 public class ReserveInfo {
-    // 공연 및 전시 정보 + 예약자 정보
+    // 공연 및 전시 정보 + 예약자 정보 + 할인여부
     private UUID performanceId;
     private String reservationName;
     private String reservationPhoneNumber;
@@ -21,5 +19,6 @@ public class ReserveInfo {
     private int round;
     private char line;
     private int seat;
+    private Long discountId;
 
 }

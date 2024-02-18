@@ -1,6 +1,4 @@
-package com.wanted.preonboarding.discount.domain.dto;
-
-import com.wanted.preonboarding.discount.domain.DiscountPolicy;
+package com.wanted.preonboarding.ticket.domain.dto;
 
 public enum DiscountType {
     PERCENTAGE("percentage"),

@@ -44,3 +44,14 @@ CREATE TABLE IF NOT EXISTS `reservation`
     PRIMARY KEY (id),
     UNIQUE KEY reservation_round_row_seat (performance_id, round, `line`, seat)
 );
+
+CREATE TABLE IF NOT EXISTS Discount (
+    `id`                INT(10) AUTO_INCREMENT  NOT NULL,
+    `performance_id`    BINARY(16)              NOT NULL,
+    `name`               VARCHAR(255)           NOT NULL,
+    `type`              VARCHAR(255)            NOT NULL,
+    `value`              DOUBLE                 NOT NULL,
+    `created_at`     DATETIME DEFAULT NOW()     NOT NULL,
+    `updated_at`     DATETIME DEFAULT NOW()     NOT NUll,
+    PRIMARY KEY (id)
+);

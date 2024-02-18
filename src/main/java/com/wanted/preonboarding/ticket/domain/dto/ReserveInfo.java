@@ -1,5 +1,6 @@
 package com.wanted.preonboarding.ticket.domain.dto;
 
+import com.wanted.preonboarding.ticket.domain.application.DiscountPolicy;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +20,17 @@ public class ReserveInfo {
     private int round;
     private char line;
     private int seat;
-    private Long discountId;
 
+    private DiscountPolicy discountPolicy;
+
+    public void setDiscountPolicy(DiscountPolicy discountPolicy){
+        this.discountPolicy = discountPolicy;
+    }
+
+//    public double calculateDiscountAmount(){
+//        if (discountPolicy == null){
+//            return 0;
+//        } else {
+//        }
+//    }
 }

@@ -1,7 +1,5 @@
-package com.wanted.preonboarding.ticket.domain.entity;
+package com.wanted.preonboarding.hexagonal.account.adapter.out.web.persistence.entity;
 
-import com.wanted.preonboarding.core.domain.entity.BaseEntity;
-import com.wanted.preonboarding.hexagonal.account.adapter.out.web.persistence.entity.PerformanceDiscountPolicy;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,7 +18,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Performance {
+public class PerformanceEntity {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")

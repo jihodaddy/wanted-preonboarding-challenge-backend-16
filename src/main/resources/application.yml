@@ -23,7 +23,7 @@ spring:
     defer-datasource-initialization: true
   sql:
     init:
-      mode: ALWAYS
+      mode:  NEVER
       data-locations: classpath:initdb/insert_test_data.sql
       schema-locations: classpath:initdb/create_schema.sql
       encoding: UTF-8
